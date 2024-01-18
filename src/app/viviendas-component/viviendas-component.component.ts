@@ -9,42 +9,25 @@ import { DataViviendasService } from '../data-viviendas.service';
 export class ViviendasComponentComponent implements OnInit {
 
   viviendas : any;
-  columnas: any;
-  vivienda = {
-
-    id:null,
-    tipo:null,
-    zona:null,
-    nDormitorios:null,
-    precio:null,
-    tamano:null,
-    extras:null,
-    observaciones:null,
-    fecha_anuncio:null
-  }
+  columnas:string[]=[];
+  
   constructor(private dataViviendas:DataViviendasService){}
 
-
+  
   ngOnInit(){
     this.obtenerViviendas();
+   
   }
 
-  obtenerViviendas(){
+  obtenerViviendas() {
     this.dataViviendas.obtenerViviendas().subscribe(
-      result=> this.viviendas=result
-
-      
+      result => {
+        this.viviendas = result;
+        this.columnas = Object.keys(this.viviendas[0]);
+      },
+      error => {
+        console.error('Error al obtener viviendas:', error);
+      }
     );
-
-    this.columnas = Object.keys(this.viviendas[0]);
   }
-
-
-  obtenerColumnas(data: any[]): string[] {
-    if (data && data.length > 0) {
-      return Object.keys(data[0]);
-    }
-    return [];
-  }
-
 }

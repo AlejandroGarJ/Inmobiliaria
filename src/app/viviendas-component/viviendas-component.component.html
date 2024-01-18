@@ -2,7 +2,7 @@
 
 <table>
 <tr>
-    <div *ngFor="let col of obtenerColumnas(viviendas)">
+    <div *ngFor="let col of columnas">
         
             <th>{{col}}</th>
         
@@ -11,10 +11,7 @@
     </tr>
 <div *ngFor="let vivienda of viviendas;">
     <tr>
-   <td> {{vivienda.id}}</td>
-   <td>{{vivienda.tipo}}</td> 
-   <td>{{vivienda.zona}}</td>
-   <td>{{vivienda.nDormitorios}}</td>
+   <td *ngFor="let col of columnas">{{vivienda[col]}}</td>
 </tr>
 </div>
 
