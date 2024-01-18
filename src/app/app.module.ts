@@ -3,14 +3,30 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ViviendasComponentComponent } from './viviendas-component/viviendas-component.component';
+import { HttpClientModule } from '@angular/common/http';
+
+const appRoutes:Routes=[
+
+  {path:'login',component:LoginComponent},
+  {path:'',component:ViviendasComponentComponent}
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    ViviendasComponentComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
   providers: [
     provideClientHydration()

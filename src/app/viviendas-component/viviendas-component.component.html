@@ -1,0 +1,21 @@
+<p>viviendas-component works!</p>
+
+<table>
+<tr>
+    <div *ngFor="let col of obtenerColumnas(viviendas)">
+        
+            <th>{{col}}</th>
+        
+
+    </div>
+    </tr>
+<div *ngFor="let vivienda of viviendas;">
+    <tr>
+   <td> {{vivienda.id}}</td>
+   <td>{{vivienda.tipo}}</td> 
+   <td>{{vivienda.zona}}</td>
+   <td>{{vivienda.nDormitorios}}</td>
+</tr>
+</div>
+
+</table>
