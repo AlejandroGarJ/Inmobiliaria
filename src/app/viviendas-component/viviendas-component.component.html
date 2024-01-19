@@ -1,18 +1,15 @@
 <p>viviendas-component works!</p>
 
 <table>
-<tr>
-    <div *ngFor="let col of columnas">
-        
-            <th>{{col}}</th>
-        
+  <tr>
+    <ng-container *ngFor="let col of columnas">
+      <th>{{col}}</th>
+    </ng-container>
+  </tr>
 
-    </div>
-    </tr>
-<div *ngFor="let vivienda of viviendas;">
+  <ng-container *ngFor="let vivienda of viviendas;">
     <tr>
-   <td *ngFor="let col of columnas">{{vivienda[col]}}</td>
-</tr>
-</div>
-
+      <td *ngFor="let col of columnas">{{vivienda[col]}}</td>
+    </tr>
+  </ng-container>
 </table>

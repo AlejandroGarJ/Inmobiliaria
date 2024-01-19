@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class DataViviendasService {
 
   URL = "http://localhost/InmobiliariaBack/";
 
-  private resultadoSubject = new Subject<any>();
+ 
 
   constructor(private http:HttpClient) { }
 
@@ -28,9 +28,9 @@ export class DataViviendasService {
     this.http.post(`${this.URL}comprobarUsuarioLogin.php`, JSON.stringify(usuario)).subscribe(
       (datos: any) => {
         if (datos.resultado === 'OK') {
-          this.mostrarError();
+          alert("Contraseña correcta");
         } else {
-          alert('Error al procesar la solicitud.');
+          alert('Contraseña incorrecta');
         }
         
       },
