@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataViviendasService } from '../data-viviendas.service';
 
 @Component({
   selector: 'app-login',
@@ -7,4 +8,19 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  nombreUsuario:string="";
+  contrasena:string="";
+
+ 
+
+  constructor(private dataViviendas:DataViviendasService){}
+
+
+
+
+
+
+  comprobarUsuario(){
+    
+  }
 }
