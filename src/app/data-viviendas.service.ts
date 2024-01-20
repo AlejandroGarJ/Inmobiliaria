@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 
 @Injectable({
@@ -9,43 +11,34 @@ export class DataViviendasService {
 
   URL = "http://localhost/InmobiliariaBack/";
 
- 
+  private contrasenaCorrectaSubject = new BehaviorSubject<boolean>(false);
 
-  constructor(private http:HttpClient) { }
+
+  constructor(private http:HttpClient, private router:Router) { }
 
   obtenerViviendas() {
     return this.http.get(`${this.URL}obtenerViviendas.php`);
   }
 
+  
 
-
-  comprobarUsuario(nombreUsuario: string, contrasena: string) {
+  comprobarUsuario(nombreUsuario: string, contrasena: string): Observable<any> {
     const usuario = {
       nombre: nombreUsuario,
       contrasena: contrasena
     };
-  
-    this.http.post(`${this.URL}comprobarUsuarioLogin.php`, JSON.stringify(usuario)).subscribe(
-      (datos: any) => {
-        if (datos.resultado === 'OK') {
-          alert("Contraseña correcta");
-        } else {
-          alert('Contraseña incorrecta');
-        }
-        
-      },
-      error => {
-        console.error('Error en la solicitud:', error);
-        alert('Error en la solicitud. Consulta la consola para más detalles.');
-        console.error('Detalles del error:', error instanceof ErrorEvent ? error.error : error);
-      
-      }
-    );
+
+    
+    return this.http.post(`${this.URL}comprobarUsuarioLogin.php`, JSON.stringify(usuario)) as Observable<any>;
   }
 
+ 
 
-  mostrarError(){
-    console.log("Error fatal");
+ 
+
+  redireccionar(){
+    this.router.navigate(['/login']);
+   
   }
 
 }

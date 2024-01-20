@@ -12,8 +12,11 @@ import { CookieService } from 'ngx-cookie-service';
 
 const appRoutes:Routes=[
 
-  {path:'login',component:LoginComponent},
-  {path:'',component:ViviendasComponentComponent}
+  {path:'login',component:LoginComponent,  pathMatch: 'full'},
+  {path:'viviendas',component:ViviendasComponentComponent, pathMatch: 'full'},
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirigir a /login si la ruta está vacía
+  { path: '**', redirectTo: '/login' } // Redirigir a /login para rutas no coincidentes
+
 ];
 
 @NgModule({
