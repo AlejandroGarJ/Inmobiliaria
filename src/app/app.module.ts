@@ -10,12 +10,14 @@ import { ViviendasComponentComponent } from './viviendas-component/viviendas-com
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
+import { LoginGuard } from './guardas/login-guard.guard';
+
 const appRoutes:Routes=[
 
   {path:'login',component:LoginComponent,  pathMatch: 'full'},
-  {path:'viviendas',component:ViviendasComponentComponent, pathMatch: 'full'},
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirigir a /login si la ruta está vacía
-  { path: '**', redirectTo: '/login' } // Redirigir a /login para rutas no coincidentes
+  {path: 'viviendas',component: ViviendasComponentComponent,canActivate: [LoginGuard]}, 
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, 
+  { path: '**', redirectTo: '/login' } 
 
 ];
 
