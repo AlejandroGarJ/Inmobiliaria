@@ -15,6 +15,9 @@ export class AppComponent {
   contrasena="";
   
  usuarioCorrecto=false
+ esAdmin=false;
+
+estaEnViviendas=false; 
 
   constructor(private cookieService:CookieService, private dataViviendasServ:DataViviendasService, private router:Router){
 
@@ -24,12 +27,46 @@ export class AppComponent {
 
 
   ngOnInit() {
+     
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+       let ruta = window.location.href.split('/')[window.location.href.split('/').length-1];
 
-  
+       const nombreUsuarioFromStorage = sessionStorage.getItem('nombreUsuario');
+       this.nombreUsuario = nombreUsuarioFromStorage !== null ? nombreUsuarioFromStorage : '';
+ 
+       const contrasenaFromStorage = sessionStorage.getItem('contrasena');
+       this.contrasena = contrasenaFromStorage !== null ? contrasenaFromStorage : '';
+       
+       if(ruta != 'login')this.usuarioCorrecto = true;
+       else this.usuarioCorrecto = false;
 
+       if(ruta=='viviendas'){
+        this.estaEnViviendas=true;
+       }else this.estaEnViviendas=false;
+
+       if(sessionStorage.getItem("esAdmin")=="si")this.esAdmin=true;
+       else this.esAdmin=false;
+      }
+    });
+
+  }
+
+  cerrarSesion(){
 
     
-     
+
+    if(sessionStorage.getItem('guardarUsuario')=='false'){
+      sessionStorage.removeItem("nombreUsuario");
+      sessionStorage.removeItem("contrasena");
+
+    }
+
+    this.router.navigate(['login']);
+
+ 
+    
+    
   }
 
 

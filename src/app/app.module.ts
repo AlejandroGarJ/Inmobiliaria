@@ -11,13 +11,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
 import { LoginGuard } from './guardas/login-guard.guard';
+import { LoginGuardAdmin } from './guardas/admin-guard.guard';
+import { PruebaSESSIONComponent } from './prueba-session/prueba-session.component';
+import { GestionarUsuariosComponent } from './gestionar-usuarios/gestionar-usuarios.component';
 
 const appRoutes:Routes=[
 
   {path:'login',component:LoginComponent,  pathMatch: 'full'},
-  {path: 'viviendas',component: ViviendasComponentComponent,canActivate: [LoginGuard]}, 
+  {path: 'viviendas',component: ViviendasComponentComponent,canActivate: [LoginGuard]},
+  {path: 'gestionUsuarios',component: GestionarUsuariosComponent,canActivate: [LoginGuardAdmin]},
   { path: '', redirectTo: '/login', pathMatch: 'full' }, 
-  { path: '**', redirectTo: '/login' } 
+  { path: '**', redirectTo: '/login' },
+  {path:'pruebas',component:PruebaSESSIONComponent}
 
 ];
 
@@ -25,7 +30,9 @@ const appRoutes:Routes=[
   declarations: [
     AppComponent,
     LoginComponent,
-    ViviendasComponentComponent
+    ViviendasComponentComponent,
+    PruebaSESSIONComponent,
+    GestionarUsuariosComponent
   ],
   imports: [
     BrowserModule,

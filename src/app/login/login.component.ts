@@ -21,15 +21,16 @@ export class LoginComponent {
   mensajeErrorC="";
   mensajeErrorU="";
   
+  
 
   ngOnInit(){
- 
-    
 
-    this.nombreUsuario= JSON.parse(this.cookieService.get('Usuario')).nombre;
-    this.contrasena= JSON.parse(this.cookieService.get('Usuario')).contrasena;
+    const nombreUsuarioFromStorage = sessionStorage.getItem('nombreUsuario');
+    this.nombreUsuario = nombreUsuarioFromStorage !== null ? nombreUsuarioFromStorage : '';
 
-    
+    const contrasenaFromStorage = sessionStorage.getItem('contrasena');
+    this.contrasena = contrasenaFromStorage !== null ? contrasenaFromStorage : '';
+
   }
 
   constructor(private cookieService:CookieService, private dataVivienda:DataViviendasService,private route:Router){}
@@ -38,13 +39,14 @@ export class LoginComponent {
 
     this.mensajeErrorC="";
     this.mensajeErrorU="";
-    const usuario = {
-      nombre: this.nombreUsuario,
-      contrasena: this.contrasena
-    };
 
-    this.cookieService.set('Usuario', JSON.stringify(usuario));
+    const checkboxElement = document.getElementById('exampleCheck1') as HTMLInputElement;
 
+    if(checkboxElement.checked){
+      sessionStorage.setItem("guardarUsuario","true");
+    }else{
+      sessionStorage.setItem("guardarUsuario","false");
+    }
     this.dataVivienda.comprobarUsuario(this.nombreUsuario,this.contrasena).subscribe(
 
       response => {
@@ -55,7 +57,10 @@ export class LoginComponent {
         if(this.contrasena=="") this.mensajeErrorC="Introduce una contraseña";
         if(this.nombreUsuario=="") this.mensajeErrorU="Introduce un usuario";
 
-        if(response=="correcto")this.route.navigate(['viviendas']);
+        if(response == "correcto1") sessionStorage.setItem("esAdmin","si");
+        else sessionStorage.setItem("esAdmin","no");
+        
+        if(response=="correcto" || response=="correcto1")this.route.navigate(['viviendas']);
 
       },
       error => {
@@ -67,7 +72,7 @@ export class LoginComponent {
   }
 
   
-
+  
 
 
 
