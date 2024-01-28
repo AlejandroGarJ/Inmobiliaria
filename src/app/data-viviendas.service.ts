@@ -20,6 +20,16 @@ export class DataViviendasService {
     return this.http.get(`${this.URL}obtenerViviendas.php`);
   }
 
+  //Metodos paginacion:
+
+  obtenerCantidadViviendas(){
+    return this.http.get(`${this.URL}obtenerCantidadViviendas.php`);
+  }
+
+  obtenerViviendasPag(indiceIni: number, indiceFin: number): Observable<any> {
+    const parametros = { indiceIni: indiceIni, indiceFin: indiceFin };
+    return this.http.post(`${this.URL}obtenerViviendasPag.php`, parametros) as Observable<any>;
+  }
   
 
   comprobarUsuario(nombreUsuario: any=null, contrasena: any=null): Observable<any> {
