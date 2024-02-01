@@ -1,6 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { DataViviendasService } from '../data-viviendas.service';
 
+
+//Declarar estructura de Vivienda
+interface Vivienda {
+  id: any;
+  tipo: any;
+  zona: any;
+  direccion: any;
+  ndormitorios: any;
+  tamano: any;
+  extras: any;
+  precio: any;
+  observaciones: any;
+  fecha_anuncio: any;
+}
+
+
+
+
+
 @Component({
   selector: 'app-viviendas-component',
   templateUrl: './viviendas-component.component.html',
@@ -16,17 +35,53 @@ export class ViviendasComponentComponent implements OnInit {
   itemsPorPag=2;
   paginaActual=1;
   indiceIni=0;
+  
+  viviendaAModificar:Vivienda={} as Vivienda;//Porque no le doy valor inicial
+  mostrarVentanaEmergente=false;
 
+  columnasVivienda: (keyof Vivienda)[] = ['id', 'tipo', 'zona', 'direccion', 'ndormitorios', 'tamano', 'extras', 'precio', 'observaciones', 'fecha_anuncio'];
+  
+
+  usarVentanaEmergente(vivienda:any=null){
+    this.viviendaAModificar = { ...vivienda };
+    if(this.mostrarVentanaEmergente==false)this.mostrarVentanaEmergente=true;
+    else this.mostrarVentanaEmergente=false;
+  }
+
+
+  
+  modificarVivienda(){
+
+    this.usarVentanaEmergente(this.viviendaAModificar);
+    
+    
+
+
+
+    this.dataViviendas.modificarVivienda(this.viviendaAModificar).subscribe(
+      result => {
+    
+      
+     
+      this.obtenerViviendasPag();
+
+      },
+      error => {
+        console.error('Error al obtener viviendas:', error);
+      }
+    );
+  }
   constructor(private dataViviendas:DataViviendasService){
 
-    
+   
   }
 
   
   ngOnInit(){
     this.obtenerViviendasPag();
     this.obtenerNViviendas();
-   
+    
+
     
   }
 
@@ -79,6 +134,8 @@ export class ViviendasComponentComponent implements OnInit {
   }
   }
 
+  
+
   mostrarPagina(paginaEscogida:number){
 
     this.paginaActual=paginaEscogida;
@@ -86,5 +143,20 @@ export class ViviendasComponentComponent implements OnInit {
 
   
     this.obtenerViviendasPag();
+  }
+
+
+  borrarVivienda(id:String){
+    this.dataViviendas.borrarVivienda(id).subscribe(
+      result => {
+    
+        
+        this.obtenerViviendasPag();
+
+      },
+      error => {
+        console.error('Error al obtener viviendas:', error);
+      }
+    );
   }
 }

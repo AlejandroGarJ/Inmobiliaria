@@ -76,6 +76,22 @@ export class DataViviendasService {
     return this.http.post(`${this.URL}modificarUsuario.php`, JSON.stringify(usuarioNuevo)) as Observable<any>;
   }
 
+  //CRUD VIVIENDA
+
+  borrarVivienda(idVivienda:String): Observable<any>{
+    
+    return this.http.post(`${this.URL}borrarVivienda.php`, JSON.stringify(idVivienda)) as Observable<any>;
+  }
+
+  modificarVivienda(vivienda:any):Observable<any>{
+
+    return this.http.post(`${this.URL}modificarVivienda.php`, JSON.stringify(vivienda)) as Observable<any>;
+  }
+
+
+
+
+
   redireccionar(){
     this.router.navigate(['/login']);
    

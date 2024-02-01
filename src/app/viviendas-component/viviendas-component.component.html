@@ -33,23 +33,116 @@
       <th>Extras</th>
       <th>Observaciones</th>
       <th>Fecha Anuncio</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <!-- Cuerpo de la tabla -->
   <tbody>
     <ng-container *ngFor="let vivienda of viviendas;">
       <tr>
-        <td>{{vivienda.id}}</td>
-        <td>{{vivienda.tipo}}</td>
-        <td>{{vivienda.zona}}</td>
-        <td>{{vivienda.direccion}}</td>
-        <td>{{vivienda.ndormitorios}}</td>
-        <td>{{vivienda.precio}}</td>
-        <td>{{vivienda.tamano}}</td>
-        <td>{{vivienda.extras}}</td>
-        <td>{{vivienda.observaciones}}</td>
-        <td>{{vivienda.fecha_anuncio}}</td>
+        <ng-container *ngFor="let columna of columnasVivienda">
+          <td>{{vivienda[columna]}}</td>
+        </ng-container>
+        <td><button (click)="borrarVivienda(vivienda.id)">Borrar</button></td>
+        <td><button (click)="usarVentanaEmergente(vivienda)">Modificar</button></td>
       </tr>
     </ng-container>
   </tbody>
 </table>
+
+
+
+
+
+
+
+
+<div *ngIf="mostrarVentanaEmergente" class="ventana-emergente">
+  <div class="ventana-emergente-contenido">
+    <h3>Modificar vivienda</h3>
+      <br>
+      <table class="table table-striped table-bordered tabla-emergente">
+        <thead class="thead-dark">
+          <tr>
+            
+            <th>Tipo</th>
+            <th>Zona</th>
+            <th>Dirección</th>
+            <th>N Dormitorios</th>
+            <th>Precio</th>
+            <th>Tamaño</th>
+            <th>Extras</th>
+            <th>Observaciones</th>
+            <th>Fecha Anuncio</th>
+            <th></th>
+            
+          </tr>
+        </thead>
+        <tr>
+          
+            <td>
+              <select name="tipo" id="tipo" [(ngModel)]="viviendaAModificar.tipo">
+                <option value="Piso">Piso</option>
+                <option value="Adosado">Adosado</option>
+                <option value="Chalet">Chalet</option>
+                <option value="Casa">Casa</option>
+              </select>
+            </td>
+            <td>
+              <select [(ngModel)]="viviendaAModificar.zona">
+                <option value="Centro">Centro</option>
+                <option value="Norte">Norte</option>
+                <option value="Sur">Sur</option>
+                <option value="Este">Este</option>
+                <option value="Oeste">Oeste</option>
+              </select>
+            </td>
+
+            <td>
+              <input type="text" [ngModel]="viviendaAModificar.direccion">
+            </td>
+            <td>
+              <select [(ngModel)]="viviendaAModificar.ndormitorios">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5 o más">5 o más</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" [(ngModel)] = "viviendaAModificar.precio">
+            </td>
+            <td>
+              <input type="number" [(ngModel)] = "viviendaAModificar.tamano">
+            </td>
+            <td>
+              <select [(ngModel)]="viviendaAModificar.extras">
+                <option value="Piscina">Piscina</option>
+                <option value="Jardín">Jardín</option>
+                <option value="Garaje">Garaje</option>
+              </select>
+            </td>
+            <td>
+              <input type="text" [(ngModel)] = "viviendaAModificar.observaciones">
+            </td>
+            <td>
+              <input type="date" [(ngModel)] = "viviendaAModificar.fecha_anuncio">
+            </td>
+       
+         
+       
+
+        </tr>
+      </table>
+
+    
+    <button type="button" class="btn btn-secondary" (click)="modificarVivienda()">Modificar</button>
+  </div>
+</div>
+
+
+<div *ngFor="let columna of columnasVivienda">
+{{columna}}
+</div>
