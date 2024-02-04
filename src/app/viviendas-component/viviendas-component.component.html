@@ -1,5 +1,9 @@
 <br><br>
-
+<div class="contenedorPrincipal">
+  <div class="buscador-izquierda">
+<app-buscador (parametrosCambiados)="recibirParametrosDelHijo($event)"></app-buscador>
+</div>
+<div class="contenido-derecha">
 <div class="d-flex justify-content-between align-items-center mb-3">
   <div>
     <label for="nItemsPorPag">Introduce cantidad de viviendas por página</label>
@@ -28,9 +32,9 @@
       <th>Zona</th>
       <th>Dirección</th>
       <th>N Dormitorios</th>
-      <th>Precio</th>
       <th>Tamaño</th>
       <th>Extras</th>
+      <th>Precio</th>
       <th>Observaciones</th>
       <th>Fecha Anuncio</th>
       <th></th>
@@ -70,9 +74,9 @@
             <th>Zona</th>
             <th>Dirección</th>
             <th>N Dormitorios</th>
-            <th>Precio</th>
             <th>Tamaño</th>
             <th>Extras</th>
+            <th>Precio</th>
             <th>Observaciones</th>
             <th>Fecha Anuncio</th>
             <th></th>
@@ -142,7 +146,5 @@
   </div>
 </div>
 
-
-<div *ngFor="let columna of columnasVivienda">
-{{columna}}
+</div>
 </div>

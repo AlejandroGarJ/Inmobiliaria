@@ -26,8 +26,10 @@ export class DataViviendasService {
     return this.http.get(`${this.URL}obtenerCantidadViviendas.php`);
   }
 
-  obtenerViviendasPag(indiceIni: number, indiceFin: number): Observable<any> {
-    const parametros = { indiceIni: indiceIni, indiceFin: indiceFin };
+  obtenerViviendasPag(indiceIni: number, indiceFin: number,parametrosBusqueda:any=null): Observable<any> {
+
+   
+    const parametros = { indiceIni: indiceIni, indiceFin: indiceFin, parametrosBusqueda:parametrosBusqueda };
     return this.http.post(`${this.URL}obtenerViviendasPag.php`, parametros) as Observable<any>;
   }
   

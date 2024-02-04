@@ -23,4 +23,31 @@
     width: 100%;
     font-size: 12px; /* Ajusta el tamaño de fuente según tus necesidades */
   }
+
+
+
+
+  .contenedorPrincipal {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .buscador-izquierda {
+    width: 10%; /* Ajusta el ancho según tus necesidades */
+    margin-right: 20px; /* Ajusta el margen derecho según tus necesidades */
+    margin-left: 15px;
+  }
+  
+  .contenido-derecha {
+    width: 85%; /* Ajusta el ancho según tus necesidades */
+    margin-right: 10px;
+  }
+  
+  .ventana-emergente {
+    /* Asegúrate de que la ventana emergente no se extienda más allá del contenedor principal */
+    max-width: 100%;
+  }
+  
+
+  
   

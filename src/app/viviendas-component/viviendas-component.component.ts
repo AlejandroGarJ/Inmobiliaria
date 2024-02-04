@@ -20,6 +20,7 @@ interface Vivienda {
 
 
 
+
 @Component({
   selector: 'app-viviendas-component',
   templateUrl: './viviendas-component.component.html',
@@ -47,6 +48,13 @@ export class ViviendasComponentComponent implements OnInit {
     if(this.mostrarVentanaEmergente==false)this.mostrarVentanaEmergente=true;
     else this.mostrarVentanaEmergente=false;
   }
+
+  recibirParametrosDelHijo(nuevosParametros: any) {
+    const arrayResultado = nuevosParametros.resultadoArray;
+    console.log(arrayResultado);
+    this.obtenerViviendasPag(arrayResultado);
+  }
+  
 
 
   
@@ -103,16 +111,13 @@ export class ViviendasComponentComponent implements OnInit {
     );
   }
 
-  obtenerViviendasPag(){
+  obtenerViviendasPag(parametrosBusqueda:any=null){
 
-    this.dataViviendas.obtenerViviendasPag(this.indiceIni,(this.indiceIni-1)+this.itemsPorPag).subscribe(
+    this.dataViviendas.obtenerViviendasPag(this.indiceIni,(this.indiceIni-1)+this.itemsPorPag,parametrosBusqueda).subscribe(
       result => {
     
-        this.viviendas = result;
+       this.viviendas=result;
         
-        
-      
-
       },
       error => {
         console.error('Error al obtener viviendas:', error);

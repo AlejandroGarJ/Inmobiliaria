@@ -1,0 +1,58 @@
+<!-- Dormitorios -->
+<div class="mb-3">
+    <label for="selectDormitorios" class="form-label">Dormitorios</label>
+    <select class="form-select" id="selectDormitorios" aria-label="Dormitorios" [(ngModel)]="parametros.ndormitorios" (ngModelChange)="enviarParametrosAlPadre()">
+      <option disabled>Escoge dormitorios</option>  
+      <option value="1">Uno</option>
+      <option value="2">Dos</option>
+      <option value="3">Tres</option>
+      <option value="4">Cuatro</option>
+      <option value="5 o más">Cinco o más</option>
+    </select>
+  </div>
+  
+  <!-- Tipo -->
+  <div class="mb-3">
+    <label for="selectTipo" class="form-label">Tipo</label>
+    <select class="form-select" id="selectTipo" aria-label="Tipo" [(ngModel)]="parametros.tipo" (ngModelChange)="enviarParametrosAlPadre()">
+        <option disabled>Escoge tipo</option> 
+      <option value="Piso">Piso</option>
+      <option value="Adosado">Adosado</option>
+      <option value="Chalet">Chalet</option>
+      <option value="Casa">Casa</option>
+    </select>
+  </div>
+  
+  <!-- Zona -->
+  <div class="mb-3">
+    <label for="selectZona" class="form-label">Zona</label>
+    <select class="form-select" id="selectZona" aria-label="Zona" [(ngModel)]="parametros.zona" (ngModelChange)="enviarParametrosAlPadre()">
+        <option disabled>Escoge zona</option> 
+      <option value="Centro">Centro</option>
+      <option value="Norte">Norte</option>
+      <option value="Sur">Sur</option>
+      <option value="Este">Este</option>
+      <option value="Oeste">Oeste</option>
+    </select>
+  </div>
+  
+  <!-- Extras -->
+  <div class="mb-3">
+    <label for="selectExtras" class="form-label">Extras</label>
+    <select class="form-select" id="selectExtras" aria-label="Extras" [(ngModel)]="parametros.extras" (ngModelChange)="enviarParametrosAlPadre()">
+        <option disabled>Escoge extras</option> 
+      <option value="Piscina">Piscina</option>
+      <option value="Jardín">Jardín</option>
+      <option value="Garaje">Garaje</option>
+    </select>
+  </div>
+  
+
+
+<!-- Precio mínimo -->
+<label for="precioMin" class="form-label">Precio mínimo: {{parametros.precioMin}}k</label>
+<input type="range" id="precioMin" name="precioMin" min="0" max="1000" step="10" [(ngModel)]="parametros.precioMin" (ngModelChange)="enviarParametrosAlPadre()">
+
+<!-- Precio máximo -->
+<label for="precioMax" class="form-label">Precio máximo: {{parametros.precioMax}}k</label>
+<input type="range" id="precioMax" name="precioMax" [min]="parametros.precioMin" max="1000" step="10" [(ngModel)]="parametros.precioMax" (ngModelChange)="enviarParametrosAlPadre()">

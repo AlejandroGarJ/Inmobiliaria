@@ -14,6 +14,7 @@ import { LoginGuard } from './guardas/login-guard.guard';
 import { LoginGuardAdmin } from './guardas/admin-guard.guard';
 import { PruebaSESSIONComponent } from './prueba-session/prueba-session.component';
 import { GestionarUsuariosComponent } from './gestionar-usuarios/gestionar-usuarios.component';
+import { BuscadorComponent } from './buscador/buscador.component';
 
 const appRoutes:Routes=[
 
@@ -32,7 +33,8 @@ const appRoutes:Routes=[
     LoginComponent,
     ViviendasComponentComponent,
     PruebaSESSIONComponent,
-    GestionarUsuariosComponent
+    GestionarUsuariosComponent,
+    BuscadorComponent
   ],
   imports: [
     BrowserModule,
