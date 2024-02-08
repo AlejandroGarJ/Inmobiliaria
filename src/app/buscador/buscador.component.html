@@ -39,7 +39,7 @@
   <!-- Extras -->
   <div class="mb-3">
     <label for="selectExtras" class="form-label">Extras</label>
-    <select class="form-select" id="selectExtras" aria-label="Extras" [(ngModel)]="parametros.extras" (ngModelChange)="enviarParametrosAlPadre()">
+    <select multiple class="form-select" id="selectExtras" aria-label="Extras" [(ngModel)]="parametros.extras" (ngModelChange)="enviarParametrosAlPadre()">
         <option disabled>Escoge extras</option> 
       <option value="Piscina">Piscina</option>
       <option value="Jardín">Jardín</option>

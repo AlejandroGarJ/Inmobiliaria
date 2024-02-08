@@ -43,7 +43,7 @@ export class LoginComponent {
     const checkboxElement = document.getElementById('exampleCheck1') as HTMLInputElement;
 
     if(checkboxElement.checked){
-      sessionStorage.setItem("guardarUsuario","true");
+      sessionStorage.setItem("guardarUsuario","true");//Para cuando cierre sesion que se guarden o no 
     }else{
       sessionStorage.setItem("guardarUsuario","false");
     }
@@ -60,7 +60,26 @@ export class LoginComponent {
         if(response == "correcto1") sessionStorage.setItem("esAdmin","si");
         else sessionStorage.setItem("esAdmin","no");
         
-        if(response=="correcto" || response=="correcto1")this.route.navigate(['viviendas']);
+        //Si usuario y password correctos...
+        if(response=="correcto" || response=="correcto1"){
+          this.route.navigate(['viviendas']);
+
+          const fechaActual = new Date();
+
+          const dia = fechaActual.getDate();
+          const mes = fechaActual.getMonth() + 1; // Sumar 1 porque los meses van de 0 a 11
+          const anio = fechaActual.getFullYear();
+          const horas = fechaActual.getHours();
+          const minutos = fechaActual.getMinutes();
+          const segundos = fechaActual.getSeconds();
+    
+          const fechaFormateada = `${dia}/${mes}/${anio} ${horas}:${minutos}:${segundos}`;
+
+     
+          this.cookieService.set("sesionActual",fechaFormateada);
+          
+        }
+       
 
       },
       error => {

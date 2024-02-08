@@ -27,7 +27,7 @@ export class BuscadorComponent {
     ndormitorios: "Escoge dormitorios",
     tipo: "Escoge tipo",
     zona: "Escoge zona",
-    extras: "Escoge extras",
+    extras: ["Escoge extras"],
     precioMin: 0,
     precioMax:1000
   };
@@ -47,7 +47,8 @@ export class BuscadorComponent {
       .filter(([clave, valor]) => !propiedadesExcluidas.test(valor))
       .map(([clave, valor]) => ({ clave, valor }));
   
-   
+      
+    
   
     this.parametrosCambiados.emit({ resultadoArray });
   }

@@ -36,9 +36,15 @@ export class ViviendasComponentComponent implements OnInit {
   itemsPorPag=2;
   paginaActual=1;
   indiceIni=0;
+
+  parametrosBusqueda:any=null;
+
+  imagenesVivienda:any;
+  seHaEscogidoAlgunParametroBusqueda=false;
   
   viviendaAModificar:Vivienda={} as Vivienda;//Porque no le doy valor inicial
   mostrarVentanaEmergente=false;
+  mostrarVentanaEmergente2=false;
 
   columnasVivienda: (keyof Vivienda)[] = ['id', 'tipo', 'zona', 'direccion', 'ndormitorios', 'tamano', 'extras', 'precio', 'observaciones', 'fecha_anuncio'];
   
@@ -49,28 +55,50 @@ export class ViviendasComponentComponent implements OnInit {
     else this.mostrarVentanaEmergente=false;
   }
 
+  //Metodos para la ventana emergente de las imagenes a modificar
+  abrirVentanaEmergente2(id:number){
+    
+    this.mostrarVentanaEmergente2=true;
+    this.obtenerImagenes(id);
+  }
+  cerrarVentanaEmergente2(){
+    this.mostrarVentanaEmergente2=false;
+  }
+  
+  obtenerImagenes(id:number){
+
+    this.dataViviendas.obtenerFotos(id).subscribe(
+      result => {
+        
+      this.imagenesVivienda=result;
+      console.log(this.imagenesVivienda);
+      },
+      error => {
+        console.error('Error al obtener viviendas:', error);
+      }
+    );
+  
+  }
+
+  //Recibe objeto de tipo parametro del componente hijo(buscador-component), esta funcion es llamada cada vez que se modifica un parametro de busqueda
   recibirParametrosDelHijo(nuevosParametros: any) {
-    const arrayResultado = nuevosParametros.resultadoArray;
-    console.log(arrayResultado);
-    this.obtenerViviendasPag(arrayResultado);
+    this.parametrosBusqueda = nuevosParametros.resultadoArray;
+   
+    this.obtenerViviendasPag();
   }
   
 
-
   
   modificarVivienda(){
-
+    
     this.usarVentanaEmergente(this.viviendaAModificar);
     
-    
-
-
-
+    //Es imposible que la update de fallo por lo que no se gestionan
     this.dataViviendas.modificarVivienda(this.viviendaAModificar).subscribe(
       result => {
     
       
-     
+        
       this.obtenerViviendasPag();
 
       },
@@ -87,7 +115,7 @@ export class ViviendasComponentComponent implements OnInit {
   
   ngOnInit(){
     this.obtenerViviendasPag();
-    this.obtenerNViviendas();
+    
     
 
     
@@ -95,28 +123,23 @@ export class ViviendasComponentComponent implements OnInit {
 
  
 
-  obtenerNViviendas(){
-    this.dataViviendas.obtenerCantidadViviendas().subscribe(
+
+  
+
+  obtenerViviendasPag(){
+
+    this.dataViviendas.obtenerViviendasPag(this.indiceIni,this.itemsPorPag,this.parametrosBusqueda).subscribe(
       result => {
-    
+        
       
-      this.cantidadViviendas=result;
+       this.viviendas=result.registros;
+       
+       console.log(result.consulta);
+
+
+        this.cantidadViviendas=result.nViviendas;
       
       this.generarNPaginas();
-
-      },
-      error => {
-        console.error('Error al obtener viviendas:', error);
-      }
-    );
-  }
-
-  obtenerViviendasPag(parametrosBusqueda:any=null){
-
-    this.dataViviendas.obtenerViviendasPag(this.indiceIni,(this.indiceIni-1)+this.itemsPorPag,parametrosBusqueda).subscribe(
-      result => {
-    
-       this.viviendas=result;
         
       },
       error => {

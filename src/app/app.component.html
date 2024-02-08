@@ -10,10 +10,11 @@
         <!-- Contenedor para el nombre de usuario y el botón de desconexión -->
         <div class="navbar-text ml-auto custom-spacing">
           <!-- Mostrar el nombre de usuario -->
-          <span class="custom-spacing">¡Hola {{ nombreUsuario }}!</span>
+          <span class="custom-spacing">¡Hola {{ nombreUsuario }}! {{fechaUltimaSession}}</span>
           <button *ngIf="esAdmin && estaEnViviendas" class="btn btn-outline-light custom-spacing" [routerLink]="'gestionUsuarios'">Gestionar Usuarios</button>
           <button *ngIf="!estaEnViviendas" class="btn btn-outline-light custom-spacing" [routerLink]="'viviendas'">Volver</button>
           <!-- Enlace/botón de desconexión -->
+        
           <button class="btn btn-outline-light" (click)="cerrarSesion()">Desconectar</button>
         </div>
       </nav>

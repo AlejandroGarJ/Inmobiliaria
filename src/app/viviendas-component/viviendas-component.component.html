@@ -1,30 +1,37 @@
 <br><br>
 <div class="contenedorPrincipal">
   <div class="buscador-izquierda">
+<!-- Parametros busqueda (otro componente hijo) -->
 <app-buscador (parametrosCambiados)="recibirParametrosDelHijo($event)"></app-buscador>
+
 </div>
 <div class="contenido-derecha">
 <div class="d-flex justify-content-between align-items-center mb-3">
   <div>
+
+<!-- Inputs para la paginacion -->
     <label for="nItemsPorPag">Introduce cantidad de viviendas por página</label>
     <input type="number" id="nItemsPorPag" class="form-control" [(ngModel)]="itemsPorPag" (ngModelChange)="actualizarBotones()">
   </div>
   <div>
     <nav aria-label="Page navigation" class="justify-content-center">
       <ul class="pagination">
+       
         <ng-container *ngFor="let pagina of nPaginas center">
           <li class="page-item">
-            <a class="page-link" (click)="mostrarPagina(pagina)">{{pagina}}</a>
+            <a [ngStyle]="{'color': pagina === paginaActual ? '#000' : 'blue'}" class="page-link" (click)="mostrarPagina(pagina)">{{pagina}}</a>
           </li>
+          
         </ng-container>
+        
       </ul>
     </nav>
   </div>
 </div>
 
-<!-- Tu tabla -->
+<!-- Mostrar viviendas (en funcion de paginacion y parametros de busqueda) -->
 <table class="table table-striped table-bordered">
-  <!-- Encabezado de la tabla -->
+
   <thead class="thead-dark">
     <tr>
       <th>ID</th>
@@ -41,7 +48,6 @@
       <th></th>
     </tr>
   </thead>
-  <!-- Cuerpo de la tabla -->
   <tbody>
     <ng-container *ngFor="let vivienda of viviendas;">
       <tr>
@@ -50,16 +56,33 @@
         </ng-container>
         <td><button (click)="borrarVivienda(vivienda.id)">Borrar</button></td>
         <td><button (click)="usarVentanaEmergente(vivienda)">Modificar</button></td>
+        <td><button (click)="abrirVentanaEmergente2(vivienda['id'])">Fotos</button></td>
+        
       </tr>
     </ng-container>
   </tbody>
 </table>
 
 
+<!-- Mostrar imagenes -->
+<div *ngIf="mostrarVentanaEmergente2" class="ventana-emergente">
+  <div class="ventana-emergente-contenido">
+    
+    <ng-container *ngFor="let imagen of imagenesVivienda">
+      
+      <img src="assets/imagenes/{{imagen['foto']}}" alt="Imagen">
+
+      
+
+    </ng-container>
+    <button (click)="cerrarVentanaEmergente2()">Cerrar</button>
+  </div>
+</div>
 
 
 
 
+<!-- Modificar vivienda -->
 
 
 <div *ngIf="mostrarVentanaEmergente" class="ventana-emergente">
@@ -116,9 +139,6 @@
               </select>
             </td>
             <td>
-              <input type="number" [(ngModel)] = "viviendaAModificar.precio">
-            </td>
-            <td>
               <input type="number" [(ngModel)] = "viviendaAModificar.tamano">
             </td>
             <td>
@@ -129,13 +149,21 @@
               </select>
             </td>
             <td>
+              <input type="number" [(ngModel)] = "viviendaAModificar.precio">
+            </td>
+            
+           
+            <td>
               <input type="text" [(ngModel)] = "viviendaAModificar.observaciones">
             </td>
             <td>
               <input type="date" [(ngModel)] = "viviendaAModificar.fecha_anuncio">
             </td>
-       
+
+
          
+       
+        
        
 
         </tr>

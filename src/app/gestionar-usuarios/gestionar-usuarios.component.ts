@@ -8,7 +8,7 @@ import { DataViviendasService } from '../data-viviendas.service';
 })
 export class GestionarUsuariosComponent {
   nombreUsuario:String="";
-  contrasena:String="";
+  contrasena:any=Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
   mensajeErrorU="";
   mensajeErrorC="";
   mensajeEmergente="";
@@ -22,10 +22,13 @@ export class GestionarUsuariosComponent {
   ngOnInit(){
     this.obtenerUsuarios();
     this.nombreUsuario="";
-    this.contrasena="";
+    
+    
   }
 
   comprobarFormato(){
+
+
 
     this.mensajeErrorU="";
     this.mensajeErrorC="";
@@ -46,12 +49,14 @@ export class GestionarUsuariosComponent {
     }
    
     if(formatoCorrecto){
+
       this.dataService.crearUsuario(this.nombreUsuario, this.contrasena).subscribe(
         (respuesta) => {
           // Manejar la respuesta exitosa aquí
          if(respuesta=='creado') {
           this.obtenerUsuarios();
           this.mensajeEmergente="Se creo con éxito"
+          this.contrasena=Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
          }
          if(respuesta=='existente') {
              

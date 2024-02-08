@@ -17,6 +17,8 @@ export class AppComponent {
  usuarioCorrecto=false
  esAdmin=false;
 
+ fechaUltimaSession="";
+
 estaEnViviendas=false; 
 
   constructor(private cookieService:CookieService, private dataViviendasServ:DataViviendasService, private router:Router){
@@ -29,6 +31,7 @@ estaEnViviendas=false;
   ngOnInit() {
      
     this.router.events.subscribe(event => {
+      //Si cambia la url (cambia de ruta o de pagina)
       if (event instanceof NavigationEnd) {
        let ruta = window.location.href.split('/')[window.location.href.split('/').length-1];
 
@@ -47,6 +50,9 @@ estaEnViviendas=false;
 
        if(sessionStorage.getItem("esAdmin")=="si")this.esAdmin=true;
        else this.esAdmin=false;
+
+       if(this.cookieService.get('ultimaSesion')) this.fechaUltimaSession="Anterior conexion: "+this.cookieService.get('ultimaSesion');
+    
       }
     });
 
@@ -64,7 +70,7 @@ estaEnViviendas=false;
 
     this.router.navigate(['login']);
 
- 
+    this.cookieService.set('ultimaSesion',this.cookieService.get('sesionActual'));
     
     
   }

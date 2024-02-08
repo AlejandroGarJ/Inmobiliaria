@@ -26,17 +26,17 @@ export class DataViviendasService {
     return this.http.get(`${this.URL}obtenerCantidadViviendas.php`);
   }
 
-  obtenerViviendasPag(indiceIni: number, indiceFin: number,parametrosBusqueda:any=null): Observable<any> {
+  obtenerViviendasPag(indiceIni: number, itemsPorPag: number,parametrosBusqueda:any=null): Observable<any> {
 
-   
-    const parametros = { indiceIni: indiceIni, indiceFin: indiceFin, parametrosBusqueda:parametrosBusqueda };
+    
+    const parametros = { indiceIni: indiceIni, itemsPorPag: itemsPorPag, parametrosBusqueda:parametrosBusqueda };
     return this.http.post(`${this.URL}obtenerViviendasPag.php`, parametros) as Observable<any>;
   }
   
 
   comprobarUsuario(nombreUsuario: any=null, contrasena: any=null): Observable<any> {
 
-    if(nombreUsuario == null){
+    if(nombreUsuario == null){//Si no ha completado el nombre cogera el nombre que hubiese antes que si no sera ""
       nombreUsuario=sessionStorage.getItem('nombreUsuario');
       contrasena=sessionStorage.getItem('contrasena');
     }else{
@@ -88,6 +88,11 @@ export class DataViviendasService {
   modificarVivienda(vivienda:any):Observable<any>{
 
     return this.http.post(`${this.URL}modificarVivienda.php`, JSON.stringify(vivienda)) as Observable<any>;
+  }
+
+  obtenerFotos(idVivienda:number):Observable<any>{
+
+    return this.http.post(`${this.URL}obtenerImagenes.php`,idVivienda) as Observable<any>;
   }
 
 
