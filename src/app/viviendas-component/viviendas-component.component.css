@@ -49,5 +49,22 @@
   }
   
 
+
+  .escalera-imagenes {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Alinea las imágenes en la parte inferior */
+  }
+  
+  .imagen-pequena {
+    width: 300px; /* Tamaño inicial de las imágenes */
+    transition: width 0.3s; /* Agrega una transición suave */
+  }
+  
+  .imagen-pequena:hover {
+    width: 600px; /* Tamaño aumentado al pasar el cursor por encima */
+  }
+  
+
   
   

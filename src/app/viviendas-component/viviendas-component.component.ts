@@ -48,6 +48,16 @@ export class ViviendasComponentComponent implements OnInit {
 
   columnasVivienda: (keyof Vivienda)[] = ['id', 'tipo', 'zona', 'direccion', 'ndormitorios', 'tamano', 'extras', 'precio', 'observaciones', 'fecha_anuncio'];
   
+ // tu arreglo de imágenes
+  indiceImagenVisible = 0;
+
+  mostrarSiguienteImagen() {
+    this.indiceImagenVisible = (this.indiceImagenVisible + 1) % this.imagenesVivienda.length;
+  }
+
+  mostrarImagenAnterior() {
+    this.indiceImagenVisible = (this.indiceImagenVisible - 1 + this.imagenesVivienda.length) % this.imagenesVivienda.length;
+  }
 
   usarVentanaEmergente(vivienda:any=null){
     this.viviendaAModificar = { ...vivienda };

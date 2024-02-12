@@ -68,13 +68,12 @@
 <div *ngIf="mostrarVentanaEmergente2" class="ventana-emergente">
   <div class="ventana-emergente-contenido">
     
-    <ng-container *ngFor="let imagen of imagenesVivienda">
-      
-      <img src="assets/imagenes/{{imagen['foto']}}" alt="Imagen">
-
-      
-
-    </ng-container>
+    <div class="escalera-imagenes">
+      <ng-container *ngFor="let imagen of imagenesVivienda">
+        <img class="imagen-pequena" src="assets/imagenes/{{imagen['foto']}}" alt="Imagen">
+      </ng-container>
+    </div>
+    
     <button (click)="cerrarVentanaEmergente2()">Cerrar</button>
   </div>
 </div>
