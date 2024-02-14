@@ -25,6 +25,11 @@
   }
 
 
+button:hover{
+    background-color: white;
+    color: #28242c;
+}
+
 
 
   .contenedorPrincipal {
@@ -63,6 +68,26 @@
   
   .imagen-pequena:hover {
     width: 600px; /* Tamaño aumentado al pasar el cursor por encima */
+  }
+  
+
+  .botonAñadir{
+  
+    margin-left: 20px;
+
+  }
+
+  .botonAñadir:hover{
+    background-color: black;
+  }
+
+
+  .botonAñadir:hover .fa-plus {
+    color: white;
+  }
+
+  .botonAñadir:hover .fa-minus{
+    color: white;
   }
   
 

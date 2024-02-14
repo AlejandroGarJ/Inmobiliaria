@@ -48,16 +48,7 @@ export class ViviendasComponentComponent implements OnInit {
 
   columnasVivienda: (keyof Vivienda)[] = ['id', 'tipo', 'zona', 'direccion', 'ndormitorios', 'tamano', 'extras', 'precio', 'observaciones', 'fecha_anuncio'];
   
- // tu arreglo de imágenes
-  indiceImagenVisible = 0;
-
-  mostrarSiguienteImagen() {
-    this.indiceImagenVisible = (this.indiceImagenVisible + 1) % this.imagenesVivienda.length;
-  }
-
-  mostrarImagenAnterior() {
-    this.indiceImagenVisible = (this.indiceImagenVisible - 1 + this.imagenesVivienda.length) % this.imagenesVivienda.length;
-  }
+  
 
   usarVentanaEmergente(vivienda:any=null){
     this.viviendaAModificar = { ...vivienda };
@@ -69,7 +60,23 @@ export class ViviendasComponentComponent implements OnInit {
   abrirVentanaEmergente2(id:number){
     
     this.mostrarVentanaEmergente2=true;
-    this.obtenerImagenes(id);
+    
+    
+    
+
+    this.dataViviendas.obtenerArchivoImagenes(id).subscribe(
+      result => {
+        
+      console.log(result);
+      console.log(id);
+      },
+      error => {
+        console.error('Error al obtener viviendas:', error);
+      }
+    );
+
+
+
   }
   cerrarVentanaEmergente2(){
     this.mostrarVentanaEmergente2=false;
@@ -89,6 +96,17 @@ export class ViviendasComponentComponent implements OnInit {
     );
   
   }
+
+  mostrarAnadir=false;
+  mostrarAnadirComponent(){
+
+    if(this.mostrarAnadir==false)this.mostrarAnadir=true;
+    else this.mostrarAnadir=false;
+
+  }
+
+
+
 
   //Recibe objeto de tipo parametro del componente hijo(buscador-component), esta funcion es llamada cada vez que se modifica un parametro de busqueda
   recibirParametrosDelHijo(nuevosParametros: any) {

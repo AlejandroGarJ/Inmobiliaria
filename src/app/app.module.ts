@@ -15,6 +15,8 @@ import { LoginGuardAdmin } from './guardas/admin-guard.guard';
 import { PruebaSESSIONComponent } from './prueba-session/prueba-session.component';
 import { GestionarUsuariosComponent } from './gestionar-usuarios/gestionar-usuarios.component';
 import { BuscadorComponent } from './buscador/buscador.component';
+import { AnadirComponent } from './anadir/anadir.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const appRoutes:Routes=[
 
@@ -34,18 +36,21 @@ const appRoutes:Routes=[
     ViviendasComponentComponent,
     PruebaSESSIONComponent,
     GestionarUsuariosComponent,
-    BuscadorComponent
+    BuscadorComponent,
+    AnadirComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    NgSelectModule
   ],
   providers: [
     provideClientHydration(),
-    CookieService
+    CookieService,
+    FormsModule
   ],
   bootstrap: [AppComponent]
 })

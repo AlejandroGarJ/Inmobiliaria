@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
+import{ViviendaAAnadir}from './anadir/anadir.component';
+
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +82,14 @@ export class DataViviendasService {
 
   //CRUD VIVIENDA
 
+ crearVivienda(vivienda:ViviendaAAnadir){
+
+  console.log(JSON.stringify(vivienda));
+
+  return this.http.post(`${this.URL}crearVivienda.php`, JSON.stringify(vivienda)) as Observable<any>;
+
+ }
+
   borrarVivienda(idVivienda:String): Observable<any>{
     
     return this.http.post(`${this.URL}borrarVivienda.php`, JSON.stringify(idVivienda)) as Observable<any>;
@@ -96,6 +106,38 @@ export class DataViviendasService {
   }
 
 
+ 
+  guardarImagenes(listaImagenesFile:File[],id:any=null){
+
+    id=1;
+    const formData = new FormData();
+   
+    if (id !== null) {
+      formData.append('id', id.toString());
+    }
+    
+    
+    // Agregar cada imagen al FormData
+    for (let i = 0; i < listaImagenesFile.length; i++) {
+      formData.append('imagenes[]', listaImagenesFile[i]);//Se pasan las imagenes a un formato binario
+    }
+    
+    console.log(formData);
+    
+    return this.http.post(`${this.URL}guardarImagenes.php`,formData) as Observable<any>;
+    
+  }
+
+
+
+  obtenerArchivoImagenes(idVivienda:number):Observable<any>{
+
+    return this.http.post(`${this.URL}obtenerArchivoImagenes.php`,idVivienda) as Observable<any>;
+  }
+
+
+
+  
 
 
 

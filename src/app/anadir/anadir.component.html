@@ -1,0 +1,102 @@
+
+<h3>Añadir Vivienda</h3>
+<form (ngSubmit)="crearVivienda()">
+<table class="table table-striped table-bordered tabla-emergente rounded-lg">
+    <thead class="thead-dark">
+      <tr>
+        <th>Tipo</th>
+        <th>Zona</th>
+        <th>Dirección</th>
+        <th>N Dormitorios</th>
+        <th>Tamaño</th>
+        <th>Extras</th>
+        <th>Precio</th>
+        <th>Observaciones</th>
+        <th>Imagenes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <select class="form-select" name="tipo" id="tipo" [(ngModel)]="viviendaAAnadir.tipo">
+            <option disabled>Escoge tipo</option>
+            <option value="Piso">Piso</option>
+            <option value="Adosado">Adosado</option>
+            <option value="Chalet">Chalet</option>
+            <option value="Casa">Casa</option>
+          </select>
+        </td>
+        <td>
+          <select class="form-select" [(ngModel)]="viviendaAAnadir.zona" name="zona" id="zona">
+            <option disabled>Escoge zona</option>
+            <option value="Centro">Centro</option>
+            <option value="Norte">Norte</option>
+            <option value="Sur">Sur</option>
+            <option value="Este">Este</option>
+            <option value="Oeste">Oeste</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" class="form-control" [(ngModel)]="viviendaAAnadir.direccion" name="direccion" id="direccion">
+        </td>
+        <td>
+          <select class="form-select" [(ngModel)]="viviendaAAnadir.ndormitorios" name="ndormitorios" id="ndormitorios">
+            <option disabled>Escoge n dormitorios</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5 o más">5 o más</option>
+          </select>
+        </td>
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="viviendaAAnadir.tamano" name="tamano" id="tamano">
+        </td>
+        <td>
+            <div class="mb-3">
+                <label (click)="usarExtras()" class="form-label bg-white pd-10" style="cursor: pointer;">Extras</label>
+                <div class="custom-select-wrapper" *ngIf="mostrarExtras">
+                  <select multiple class="custom-select" id="selectExtras" aria-label="Extras" [(ngModel)]="viviendaAAnadir.extras" [ngModelOptions]="{standalone: true}">
+                    <option disabled>Escoge extras</option> 
+                    <option value="Piscina">Piscina</option>
+                    <option value="Jardín">Jardín</option>
+                    <option value="Garaje">Garaje</option>
+                  </select>
+                </div>
+              </div>
+              
+            
+            
+            
+        </td>
+
+        
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="viviendaAAnadir.precio" name="precio" id="precio">
+        </td>
+        <td>
+          <input type="text" class="form-control" [(ngModel)]="viviendaAAnadir.observaciones" name="observaciones" id="observaciones">
+       
+          <td>
+            
+            <input type="file" accept="image/*" multiple (change)="onFileChange($event)"> 
+            <!-- Solo admite archivos imagen, llamara al metodo onFileSelected cada vez que meta imagenes 
+                para seguir la dinamica del ngModel-->
+            
+          </td>
+        <td><button type="submit" class="btn btn-success">Añadir</button></td>
+      </tr>
+    </tbody>
+  </table>
+  </form>
+
+
+  <!-- Ventana emergente de error -->
+  <div *ngIf="mostrarVentanaEmergente" class="ventana-emergente">
+    <div class="ventana-emergente-contenido">
+      <h3>{{mensajeEmergente}}</h3>
+        <br>
+      <button type="button" class="btn btn-secondary" (click)="usarVentanaEmergente()">Cerrar</button>
+    </div>
+  </div>
+  <br><br>

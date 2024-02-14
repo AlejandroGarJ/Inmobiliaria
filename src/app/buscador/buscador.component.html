@@ -56,3 +56,5 @@
 <!-- Precio máximo -->
 <label for="precioMax" class="form-label">Precio máximo: {{parametros.precioMax}}k</label>
 <input type="range" id="precioMax" name="precioMax" [min]="parametros.precioMin" max="1000" step="10" [(ngModel)]="parametros.precioMax" (ngModelChange)="enviarParametrosAlPadre()">
+
+
