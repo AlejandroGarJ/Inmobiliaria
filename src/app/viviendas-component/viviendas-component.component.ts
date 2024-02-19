@@ -46,29 +46,86 @@ export class ViviendasComponentComponent implements OnInit {
   mostrarVentanaEmergente=false;
   mostrarVentanaEmergente2=false;
 
+
   columnasVivienda: (keyof Vivienda)[] = ['id', 'tipo', 'zona', 'direccion', 'ndormitorios', 'tamano', 'extras', 'precio', 'observaciones', 'fecha_anuncio'];
   
   
 
   usarVentanaEmergente(vivienda:any=null){
     this.viviendaAModificar = { ...vivienda };
+   
     if(this.mostrarVentanaEmergente==false)this.mostrarVentanaEmergente=true;
     else this.mostrarVentanaEmergente=false;
   }
 
+
+//borrar imagen de vivienda
+
+borrarImagen(imagen:string,id:number){
+
+  console.log(imagen+" "+id);
+
+  this.dataViviendas.borrarImagen(imagen,id).subscribe(
+
+    result => {
+      
+    if(result=true){
+
+      this.abrirVentanaEmergente2(this.viviendaAModificar.id);
+    }
+
+
+    
+    },
+    error => {
+      console.error('Error al obtener viviendas:', error);
+    }
+  );
+
+
+}
+
+
+listaImagenesFile:File[]=[];
+
+onFileChange(event:any){
+  this.listaImagenesFile = event.target.files;
+
+  this.dataViviendas.guardarImagenes(this.listaImagenesFile,this.viviendaAModificar.id).subscribe(
+    result => {
+      
+    this.abrirVentanaEmergente2(this.viviendaAModificar.id);
+
+    },
+    error => {
+      console.error('Error al obtener viviendas:', error);
+    }
+  );
+  
+}
+
+
+
+
+
+
+  imagenArchivo:any;
   //Metodos para la ventana emergente de las imagenes a modificar
+
+  nombreImagenes:string[]=[];
+
   abrirVentanaEmergente2(id:number){
     
     this.mostrarVentanaEmergente2=true;
     
-    
-    
+    this.viviendaAModificar.id=id;
 
     this.dataViviendas.obtenerArchivoImagenes(id).subscribe(
       result => {
         
-      console.log(result);
-      console.log(id);
+      console.log("Resultado imiagenes: "+result);
+        this.imagenArchivo=result['archivoImagenes'];
+        this.nombreImagenes=result['nombreImagenes'];
       },
       error => {
         console.error('Error al obtener viviendas:', error);
@@ -78,6 +135,8 @@ export class ViviendasComponentComponent implements OnInit {
 
 
   }
+
+  
   cerrarVentanaEmergente2(){
     this.mostrarVentanaEmergente2=false;
   }
@@ -85,9 +144,12 @@ export class ViviendasComponentComponent implements OnInit {
   obtenerImagenes(id:number){
 
     this.dataViviendas.obtenerFotos(id).subscribe(
+
       result => {
         
       this.imagenesVivienda=result;
+
+
       console.log(this.imagenesVivienda);
       },
       error => {
@@ -118,10 +180,11 @@ export class ViviendasComponentComponent implements OnInit {
 
   
   modificarVivienda(){
-    
+    console.log(this.viviendaAModificar);
     this.usarVentanaEmergente(this.viviendaAModificar);
     
-    //Es imposible que la update de fallo por lo que no se gestionan
+    
+    //Es imposible que la update de fallo por lo que no se gestionan errores
     this.dataViviendas.modificarVivienda(this.viviendaAModificar).subscribe(
       result => {
     

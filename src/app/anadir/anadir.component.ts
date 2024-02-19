@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DataViviendasService } from '../data-viviendas.service';
 
 export interface ViviendaAAnadir{
@@ -43,6 +43,8 @@ constructor(private viviendaData:DataViviendasService){}
   mensajeEmergente:string="Faltan campos por rellenar";
   mostrarExtras=false;
 
+  @Output() seCreoVivienda = new EventEmitter<void>();
+
   crearVivienda(){
     
 
@@ -59,6 +61,7 @@ constructor(private viviendaData:DataViviendasService){}
           if(this.listaImagenesFile.length>0) this.añadirImagenes();
          
           this.mensajeEmergente="Se creo con exito";
+          this.seCreoVivienda.emit();
 
         }
 

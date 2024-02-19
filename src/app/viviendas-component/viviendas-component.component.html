@@ -39,7 +39,7 @@
     </div>
   </div>
   
-<app-anadir *ngIf="mostrarAnadir"></app-anadir>
+<app-anadir *ngIf="mostrarAnadir" (seCreoVivienda)="obtenerViviendasPag()"></app-anadir>
 
 
 
@@ -84,15 +84,52 @@
     
     
     <div class="escalera-imagenes">
-      <ng-container *ngFor="let imagen of imagenesVivienda">
-        <img class="imagen-pequena" src="assets/imagenes/{{imagen['foto']}}" alt="Imagen">
+      <ng-container *ngFor="let imagen of imagenArchivo; let i = index">
+   
+        
+        <img  (click)="borrarImagen(nombreImagenes[i],viviendaAModificar.id)" class="imagen-pequena" src="{{'data:image/jpg;base64,' + imagen}}" />
+        
+       
+        
+       
       </ng-container>
+     
     </div>
     
-    <button (click)="cerrarVentanaEmergente2()" class="btn btn-dark">Cerrar</button>
+  
+    <div class="container">
+      
+        <div class="row">
+          <div class="col align-self-center">
+           <h3>Haz click en la imagen para borrarla</h3>
+          </div>
+
+        <div class="row">
+          <div class="col align-self-center">
+          <input type="file" accept="image/*" multiple (change)="onFileChange($event)" class="form-control" placeholder="Añadir imagen"> 
+          <!-- Solo admite archivos imagen, llamara al metodo onFileSelected cada vez que meta imagenes 
+              para seguir la dinamica del ngModel-->
+              </div>
+
+        </div>
+        <div class="row">
+          <div class="col align-self-center">
+          <button (click)="cerrarVentanaEmergente2()" class="btn btn-dark">Cerrar</button>
+          </div>
+        </div>
+      
+    </div>
     
+
+
+
   </div>
 </div>
+
+
+
+
+
 
 
 
@@ -157,7 +194,7 @@
               <input type="number" [(ngModel)] = "viviendaAModificar.tamano">
             </td>
             <td>
-              <select [(ngModel)]="viviendaAModificar.extras">
+              <select multiple [(ngModel)]="viviendaAModificar.extras">
                 <option value="Piscina">Piscina</option>
                 <option value="Jardín">Jardín</option>
                 <option value="Garaje">Garaje</option>

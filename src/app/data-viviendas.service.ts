@@ -95,6 +95,8 @@ export class DataViviendasService {
     return this.http.post(`${this.URL}borrarVivienda.php`, JSON.stringify(idVivienda)) as Observable<any>;
   }
 
+  
+
   modificarVivienda(vivienda:any):Observable<any>{
 
     return this.http.post(`${this.URL}modificarVivienda.php`, JSON.stringify(vivienda)) as Observable<any>;
@@ -109,7 +111,7 @@ export class DataViviendasService {
  
   guardarImagenes(listaImagenesFile:File[],id:any=null){
 
-    id=1;
+   
     const formData = new FormData();
    
     if (id !== null) {
@@ -136,8 +138,12 @@ export class DataViviendasService {
   }
 
 
+  borrarImagen(imagen:string,id:number):Observable<any>{
 
-  
+    const borrarImagen ={imagen:imagen, id:id};
+    return this.http.post(`${this.URL}borrarImagen.php`,borrarImagen) as Observable<any>;
+
+  }
 
 
 
